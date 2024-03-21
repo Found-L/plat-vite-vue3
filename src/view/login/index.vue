@@ -26,6 +26,8 @@
   // 图形类型
   const chartType = ref<String | null>('PRPS');
   
+
+  /*****生成随机数组*****/
   function generateRandomArray(length: number, min: number, max: number): number[] {
     const randomArray: number[] = [];
     for (let i = 0; i < length; i++) {
@@ -35,15 +37,15 @@
     }
     return randomArray;
   }
-
   function updateRandomArray() {
   setInterval(() => {
       dataList.value = generateRandomArray(6400, -80, 0);
       // console.log(dataList.value);
     }, 1000); // 每秒更新一次
   }
-
   updateRandomArray();
+  /*****生成随机数组*****/
+
 
   onMounted(() => {
     initThree();
