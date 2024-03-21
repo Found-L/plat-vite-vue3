@@ -3,8 +3,14 @@ import { createRouter, createWebHistory } from "vue-router"
 let routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../view/homeView.vue')
+    redirect: 'login',
+    // name: 'home',
+    // component: () => import('../view/dashboard/index.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../view/login/index.vue')
   },
   // {
   //   // 配置404页面

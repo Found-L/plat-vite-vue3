@@ -7,6 +7,9 @@ import { resolve } from "path";
 import AutoImport from "unplugin-auto-import/vite"
 // 自动导入ui-组件 例如ant-design-vue element-plus等
 import Components from "unplugin-vue-components/vite"
+import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+const mode = process.env.NODE_ENV;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,18 +20,39 @@ export default defineConfig({
       imports:['vue','vue-router'],
       // 存放的位置
       dts:"src/auto-import.d.ts",
+      resolvers: [
+        AntDesignVueResolver(),
+        ElementPlusResolver()
+      ],
     }),
     Components({
+      resolvers: [
+        AntDesignVueResolver({
+          // importStyle: mode === 'development' ? false : 'less',
+          importStyle: true, resolveIcons: true
+        }),
+        ElementPlusResolver(),
+      ],
       // 引入组件的，包括自定义组件
       // 存放的位置
       dts:"src/components.d.ts"
     }),
   ],
+  base:'./',
    // ↓解析配置
-    resolve: {
-      // ↓路径别名
-      alias: {
-        "@": resolve(__dirname, "./src")
-      }
+  resolve: {
+    // ↓路径别名
+    alias: {
+      "@": resolve(__dirname, "./src")
     }
+  },
+  server: {
+    proxy: {
+      "/api": {
+        target: 'http://192.168.8.20:9457',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 })
