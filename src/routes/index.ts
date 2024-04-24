@@ -12,6 +12,16 @@ let routes = [
     name: 'login',
     component: () => import('../view/login/index.vue')
   },
+  {
+    path: '/three',
+    name: 'three',
+    component: () => import('../view/modules/three/index.vue')
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: () => import('../view/modules/arcgis/index.vue')
+  },
   // {
   //   // 配置404页面
   //   path: '/:catchAll(.*)',
